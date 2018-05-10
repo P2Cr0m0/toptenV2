@@ -5,6 +5,13 @@
     <UserSecretsId>aspnet-toptenV2-947736C8-8136-4929-B74D-37F9D7AFF6E3</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Models\Category\**" />
+    <Content Remove="Models\Category\**" />
+    <EmbeddedResource Remove="Models\Category\**" />
+    <None Remove="Models\Category\**" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
@@ -16,10 +23,6 @@
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.2" />
     <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="2.0.1" />
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Models\Category\" />
   </ItemGroup>
 
 </Project>
