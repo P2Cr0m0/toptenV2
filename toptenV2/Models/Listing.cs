@@ -16,6 +16,13 @@ namespace toptenV2.Models
         [DisplayFormat(DataFormatString = "{0:yyy-mmm-ddd}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
         public DateTime ReleaseDate { get; set; }
+
+
+        public string Creator { get; set; }
+
+
+
+
         public virtual SubCategory SubCategory { get; set; }
 
     }

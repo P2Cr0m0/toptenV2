@@ -11,9 +11,10 @@ using toptenV2.Data;
 namespace toptenV2.Migrations
 {
     [DbContext(typeof(TopTenContext))]
-    partial class TopTenContextModelSnapshot : ModelSnapshot
+    [Migration("20180514172915_creator")]
+    partial class creator
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
