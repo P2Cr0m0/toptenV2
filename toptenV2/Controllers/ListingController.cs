@@ -20,9 +20,9 @@ namespace toptenV2.Controllers
         }
 
         // GET: Listing
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id)
         {
-            var topTenContext = _context.Listings.Include(l => l.SubCategory);
+            var topTenContext = _context.Listings.Where(l=>l.SubCategoryID==id).Include(l => l.SubCategory);
             return View(await topTenContext.ToListAsync());
         }
 
@@ -46,9 +46,10 @@ namespace toptenV2.Controllers
         }
 
         // GET: Listing/Create
-        public IActionResult Create()
+        public IActionResult Create(int? subcatID)
         {
             ViewData["SubCategoryID"] = new SelectList(_context.SubCategories, "ID", "Name");
+            ViewData["subcatID"] = subcatID;
             return View();
         }
 
@@ -57,20 +58,22 @@ namespace toptenV2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,SubCategoryID,Name,ReleaseDate")] Listing listing)
+        public async Task<IActionResult> Create([Bind("ID,SubCategoryID,Name,Creator,ReleaseDate")] Listing listing, string subcatID)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(listing);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Home");
             }
             ViewData["SubCategoryID"] = new SelectList(_context.SubCategories, "ID", "Name", listing.SubCategoryID);
             return View(listing);
-        }
+
+            
+    }
 
         // GET: Listing/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? id,int? subcatID)
         {
             if (id == null)
             {
@@ -83,6 +86,7 @@ namespace toptenV2.Controllers
                 return NotFound();
             }
             ViewData["SubCategoryID"] = new SelectList(_context.SubCategories, "ID", "Name", listing.SubCategoryID);
+            ViewData["subcatID"] = subcatID;
             return View(listing);
         }
 
@@ -91,7 +95,7 @@ namespace toptenV2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,SubCategoryID,Name,ReleaseDate")] Listing listing)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,SubCategoryID,Name,Creator,ReleaseDate")] Listing listing,string subcatID)
         {
             if (id != listing.ID)
             {
@@ -116,7 +120,8 @@ namespace toptenV2.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index","Listing",new { id = subcatID });
             }
             ViewData["SubCategoryID"] = new SelectList(_context.SubCategories, "ID", "Name", listing.SubCategoryID);
             return View(listing);
@@ -149,7 +154,7 @@ namespace toptenV2.Controllers
             var listing = await _context.Listings.SingleOrDefaultAsync(m => m.ID == id);
             _context.Listings.Remove(listing);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Home");
         }
 
         private bool ListingExists(int id)

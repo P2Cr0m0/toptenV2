@@ -13,16 +13,10 @@ namespace toptenV2.Models
         public string Name { get; set; }
 
         [Display(Name = "Release Date")]
-        [DisplayFormat(DataFormatString = "{0:yyy-mmm-ddd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyy-MM-dd}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
         public DateTime ReleaseDate { get; set; }
-
-
         public string Creator { get; set; }
-
-
-
-
         public virtual SubCategory SubCategory { get; set; }
 
     }

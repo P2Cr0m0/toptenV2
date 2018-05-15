@@ -34,17 +34,17 @@
 
 
                     @*<li class="nav-item dropdown">
-                        <a title="our categories" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-info-circle"></i> Our Categories
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <h4>Music</h4>
-                            <a class="dropdown-item" asp-controller="Home" asp-action=""><i class="fas fa-music-circle"></i> Music-Rock</a>
-                            <a class="dropdown-item" asp-controller="Home" asp-action=""><i class="fas fa-envelope-open"></i> Music-Pop</a>
-                            <h4>Movie</h4>
-                            <a class="dropdown-item" asp-controller="Home" asp-action=""><i class="fas fa-question-circle"></i> Request Information</a>
-                        </div>
-                    </li>*@
+            <a title="our categories" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-info-circle"></i> Our Categories
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <h4>Music</h4>
+                <a class="dropdown-item" asp-controller="Home" asp-action=""><i class="fas fa-music-circle"></i> Music-Rock</a>
+                <a class="dropdown-item" asp-controller="Home" asp-action=""><i class="fas fa-envelope-open"></i> Music-Pop</a>
+                <h4>Movie</h4>
+                <a class="dropdown-item" asp-controller="Home" asp-action=""><i class="fas fa-question-circle"></i> Request Information</a>
+            </div>
+        </li>*@
 
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Our Categories <span class="caret"></span></a>
@@ -52,20 +52,21 @@
                             <li role="separator" class="divider"></li>
                             <li><h4>Music</h4></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#">Rock</a></li>
-                            <li><a href="#">Pop</a></li>
+                            <li><a asp-area="" asp-controller="Listing" asp-action="Index" asp-route-id="2">Rock</a></li>
+                            <li><a asp-area="" asp-controller="Listing" asp-action="Index" asp-route-id="1">Pop</a></li>
                             <li role="separator" class="divider"></li>
                             <li><h4>Movie</h4></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
+                            <li><a asp-area="" asp-controller="Listing" asp-action="Index" asp-route-id="4">Horror</a></li>
+                            <li><a asp-area="" asp-controller="Listing" asp-action="Index" asp-route-id="6">Animation</a></li>
                             <li role="separator" class="divider"></li>
                             <li><h4>Games</h4></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
+                            <li><a asp-area="" asp-controller="Listing" asp-action="Index" asp-route-id="5">F.P.S.</a></li>
+                            <li><a asp-area="" asp-controller="Listing" asp-action="Index" asp-route-id="3">SandBox</a></li>
                         </ul>
                     </li>
+
 
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
