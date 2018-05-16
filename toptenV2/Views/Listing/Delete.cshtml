@@ -1,0 +1,46 @@
+﻿@model toptenV2.Models.Listing
+
+@{
+    ViewData["Title"] = "Delete";
+}
+<div class="box box-auto">
+    <h2>Delete</h2>
+
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+        <h4>Listing</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Creator)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Creator)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ReleaseDate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ReleaseDate)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.SubCategory)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.SubCategory.ID)
+            </dd>
+        </dl>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="ID" />
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <a asp-action="Index"asp-route-id="@Model.SubCategoryID">Back to List</a>
+        </form>
+    </div>
+</div>
