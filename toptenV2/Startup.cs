@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using toptenV2.Data;
 using toptenV2.Models;
 using toptenV2.Services;
+using Microsoft.Extensions.Configuration.UserSecrets;
 
 namespace toptenV2
 {
@@ -18,6 +19,7 @@ namespace toptenV2
     {
         public Startup(IConfiguration configuration)
         {
+
             Configuration = configuration;
         }
 
@@ -39,7 +41,12 @@ namespace toptenV2
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
 
+            //Confirmed Email
+            //services.Configure<AuthMessageSenderOptions>(Configuration);
+
+
             services.AddMvc();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,6 +73,8 @@ namespace toptenV2
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+
         }
     }
 }
