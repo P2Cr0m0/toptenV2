@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.Options;
+﻿using MailKit.Net.Smtp;
+using MailKit.Security;
+using Microsoft.Extensions.Options;
+using MimeKit;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 using System.Threading.Tasks;
@@ -10,30 +13,35 @@ namespace toptenV2.Services
     public class EmailSender : IEmailSender
     {
 
-        public EmailSender(IOptions<AuthMessageSenderOptions> optionsAccessor)
+        public async Task SendEmailAsync(string email, string subject, string message)
         {
-            Options = optionsAccessor.Value;
-        }
 
-        public AuthMessageSenderOptions Options { get; } //set only via Secret Manager
+            var emailMessage = new MimeMessage();
 
-        public Task SendEmailAsync(string email, string subject, string message)
-        {
-            return Execute(Options.SendGridKey, subject, message, email);
-        }
+            emailMessage.From.Add(new MailboxAddress("Top Ten", "amydaigle99@gmail.com"));
+            emailMessage.To.Add(new MailboxAddress("Amy Daigle", email));
+            emailMessage.Subject = subject;
+            //emailMessage.Body = new TextPart("plain") { Text = message };
+            var bodyBuilder = new BodyBuilder();
+            bodyBuilder.HtmlBody = message;
 
-        public Task Execute(string apiKey, string subject, string message, string email)
-        {
-            var client = new SendGridClient(apiKey);
-            var msg = new SendGridMessage()
+            emailMessage.Body = bodyBuilder.ToMessageBody();
+
+
+            using (var client = new SmtpClient())
             {
-                From = new EmailAddress("Joe@contoso.com", "Joe Smith"),
-                Subject = subject,
-                PlainTextContent = message,
-                HtmlContent = message
-            };
-            msg.AddTo(new EmailAddress(email));
-            return client.SendEmailAsync(msg);
+                //client.LocalDomain = "some.domain.com";
+                //await client.ConnectAsync("smtp.relay.uri", 25, SecureSocketOptions.None).ConfigureAwait(false);
+                await client.ConnectAsync("smtp.gmail.com", 465, SecureSocketOptions.SslOnConnect).ConfigureAwait(false);
+                // Note: since we don't have an OAuth2 token, disable
+                // the XOAUTH2 authentication mechanism.
+                client.AuthenticationMechanisms.Remove("XOAUTH2");
+                await client.AuthenticateAsync("amydaigle99@gmail.com", "QueenZelda1").ConfigureAwait(false);
+                await client.SendAsync(emailMessage);
+                await client.DisconnectAsync(true).ConfigureAwait(false);
+            }
+
         }
+
     }
 }
